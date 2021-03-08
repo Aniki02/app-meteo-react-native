@@ -1,30 +1,56 @@
-import { StatusBar } from 'expo-status-bar';
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, ActivityIndicator } from 'react-native';
-import {getCityDataFromOpenWeatherAPIWithId} from "../api/OpenWeatherAPI";
-import {Layout, Text} from "@ui-kitten/components";
+import { StyleSheet, ActivityIndicator, SafeAreaView, Image, ScrollView} from 'react-native';
+import {
+    getCurrentFromOpenWeatherAPIWithId,
+    getCurrentFromOpenWeatherAPIWithName,
+    getHourlyFromOpenWeatherAPIWithName
+} from "../api/OpenWeatherAPI";
+import {Button, Divider, Layout, Text, TopNavigation, Input, Icon, List, ListItem, Card} from "@ui-kitten/components";
+import {SearchIcon} from "../../assets/Icons";
+import {CurrentWeather} from "./CurrentWeather";
+import {HourlyForecast} from "./HourlyForecast";
+import {DailyForecast} from "./DailyForecast";
+import {oneCall} from "../helpers/oneCall";
 
-const Home = () =>  {
-    const [isLoading, setLoading] = useState(true);
-    const [data, setData] = useState([]);
-    const newYorkId = '5039192';
+const units = 'metric';
 
-    useEffect(() => {
-        getCityDataFromOpenWeatherAPIWithId(newYorkId)
-            .then((json) => setData(json))
-            .catch((error) => console.log('Error : ' + error))
-            .finally(() => setLoading(false));
-    }, []);
+const Home = ({navigation}) =>  {
+    const [isLoading, setLoading] = useState(false);
+    const [data, setData] = useState(oneCall);
+    const [city, setCity] = useState('Fameck');
 
-    console.log(data);
+    /*useEffect(() => {
+        if (city.length >= 3){
+            getCurrentFromOpenWeatherAPIWithName(city, units)
+                .then((json) => setData(json))
+                .catch((error) => console.log('Error : ' + error))
+                .finally(() => setLoading(false));
+        }
+    }, [city]);*/
+
+    const getOneCall = (lat, lon) => {
+
+    };
+
+    const SearchButton = () => (
+        <Button onPress={() => getOneCall} accessoryLeft={SearchIcon} appearance={'ghost'}/>
+    );
 
     return (
-        <Layout style={styles.container}>
-            {isLoading ? <ActivityIndicator/> : (
-                <Text category={'h1'}>name : {data.name}, time zone : {data.timezone} </Text>
-            )}
-            <StatusBar style="auto" />
-        </Layout>
+        <SafeAreaView style={styles.container}>
+            <TopNavigation title={'MyApp'} alignment={'center'}/>
+            <Divider/>
+            <Input
+                placeholder='City'
+                value={city}
+                onChangeText={(text) => setCity(text)}
+                accessoryRight={SearchButton}
+            />
+            <Layout style={styles.container}>
+                <CurrentWeather navigation={navigation} city={city} weather={data}/>
+            </Layout>
+        </SafeAreaView>
+
     );
 }
 
@@ -33,7 +59,6 @@ export default Home;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
     },
 });
+
