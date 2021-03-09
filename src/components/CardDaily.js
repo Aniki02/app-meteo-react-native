@@ -3,7 +3,7 @@ import {Card, Layout, Text} from "@ui-kitten/components";
 import {Image, StyleSheet} from "react-native";
 import moment from "moment";
 
-export const ShortMeteoDaily = ({weather, navigation}) => {
+export const CardDaily = ({weather, navigation}) => {
 
     const date = moment.unix(weather.dt).format('DD/MM/YYYY');
     const goToDetails = (dailyData) => {

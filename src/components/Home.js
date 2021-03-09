@@ -3,14 +3,11 @@ import { StyleSheet, ActivityIndicator, SafeAreaView} from 'react-native';
 import {
     getCurrentFromOpenWeatherAPIWithLatLon,
     getCurrentFromOpenWeatherAPIWithName,
-    getOneCallFromOpenWeatherAPI,
 } from "../api/OpenWeatherAPI";
-import {Button, Divider, Layout,TopNavigation, Input, Text} from "@ui-kitten/components";
+import {Button, Divider, Layout,TopNavigation, Input} from "@ui-kitten/components";
 import {SearchIcon} from "../../assets/Icons";
 import {CurrentWeather} from "./CurrentWeather";
 import * as Location from 'expo-location';
-import * as Permissions from 'expo-permissions';
-import {usePermissions} from "expo-permissions";
 
 const units = 'metric';
 
@@ -28,15 +25,6 @@ const Home = ({navigation}) =>  {
             .catch((error) => console.log('Error : ' + error))
             .finally(() => setLoading(false));
     };
-
-    const getCurrentWeatherWithLatLon = () => {
-        setLoading(true);
-        getCurrentFromOpenWeatherAPIWithName(city, units)
-            .then((json) => setData(json))
-            .catch((error) => console.log('Error : ' + error))
-            .finally(() => setLoading(false));
-    }
-
 
     const SearchButton = () => (
         <Button onPress={() => getCurrentWeather()} accessoryLeft={SearchIcon} appearance={'ghost'}/>

@@ -1,14 +1,13 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Layout, List, Text} from "@ui-kitten/components";
-import {ShortMeteoDaily} from "./ShortMeteoDaily";
+import {CardDaily} from "./CardDaily";
 
 export const DailyForecast = ({weather, navigation}) => {
 
-    const [data, setData] = useState([{title: '1'}, {title: '2'}, {title: '3'}, {title: '4'}, {title: '5'}]);
-
     const renderItem = ({ item, index }) => (
-        <ShortMeteoDaily weather={item} navigation={navigation}/>
+        <CardDaily weather={item} navigation={navigation}/>
     );
+
     return(
         <Layout>
             <Text category={'h2'}>Next Week</Text>

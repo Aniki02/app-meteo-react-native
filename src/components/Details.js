@@ -21,10 +21,6 @@ const Details = ({navigation, route, saved, dispatch}) => {
 
     }, []);
 
-    console.log('===============ITEM IN DETAILS===============');
-    console.log(globalWeather);
-    console.log('=============================================');
-
     const save = (itemToSave) => {
         const action = {type:'ADD', value: itemToSave}
         dispatch(action)
@@ -55,15 +51,6 @@ const Details = ({navigation, route, saved, dispatch}) => {
         }
     };
 
-    /*{
-        globalWeather ?
-            <Layout style={{ flex: 1}}>
-                <HourlyForecast weather={globalWeather.hourly} navigation={navigation}/>
-                <DailyForecast weather={globalWeather.daily} navigation={navigation}/>
-            </Layout>
-            :
-            <ActivityIndicator/>
-    }*/
     return (
         <SafeAreaView style={{flex: 1}}>
             <TopNavigation title={'Details'} alignment={'center'} accessoryLeft={BackAction} accessoryRight={SaveAction}/>

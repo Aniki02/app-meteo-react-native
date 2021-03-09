@@ -1,13 +1,10 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {Card, Layout, Text} from "@ui-kitten/components";
 import {Image, StyleSheet} from "react-native";
-import {getCurrentFromOpenWeatherAPIWithName, getOneCallFromOpenWeatherAPI} from "../api/OpenWeatherAPI";
 
 const units= 'metric';
 
 export const CurrentWeather = ({navigation, current}) => {
-
-    const [weather, setWeather] = useState(null);
 
     const goToDetails = (item) => {
         navigation.navigate('Details', {item: item})

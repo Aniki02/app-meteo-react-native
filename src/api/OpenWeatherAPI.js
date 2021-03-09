@@ -46,15 +46,3 @@ export function  getDailyFromOpenWeatherAPIWithName(name, units) {
     return fetch(url)
         .then((response) => response.json());
 }
-
-/*const getCurrentByName = (text) => {
-        if (city.length >= 3){
-            setLoading(true);
-            getCurrentFromOpenWeatherAPIWithName(text, units)
-                .then((json) => setData(json))
-                .catch((error) => console.log('Error : ' + error))
-                .finally(() => setLoading(false));
-        }
-    };
-
- */

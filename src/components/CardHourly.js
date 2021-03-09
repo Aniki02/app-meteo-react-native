@@ -3,7 +3,7 @@ import {Card, Layout, Text} from "@ui-kitten/components";
 import {Image, StyleSheet} from "react-native";
 import moment from 'moment';
 
-export const ShortMeteoHourly = ({data, navigation}) => {
+export const CardHourly = ({data, navigation}) => {
 
     const hour = moment.unix(data.dt).format('HH:mm');
 
