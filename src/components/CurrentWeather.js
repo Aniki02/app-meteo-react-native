@@ -1,28 +1,34 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Card, Layout, Text} from "@ui-kitten/components";
 import {Image, StyleSheet} from "react-native";
+import {getCurrentFromOpenWeatherAPIWithName, getOneCallFromOpenWeatherAPI} from "../api/OpenWeatherAPI";
 
-export const CurrentWeather = ({navigation, city, weather}) => {
+const units= 'metric';
 
-    const goToDetails = () => {
-        navigation.navigate('Details', {item: weather})
+export const CurrentWeather = ({navigation, current}) => {
+
+    const [weather, setWeather] = useState(null);
+
+    const goToDetails = (item) => {
+        navigation.navigate('Details', {item: item})
     };
+
     return (
-        <Card onPress={() => goToDetails()}>
+        <Card onPress={() => goToDetails(current)}>
             <Layout style={styles.current}>
                 <Text category={'h1'} appearance={'hint'} style={styles.title}>Current Weather</Text>
-                <Text category={'h4'}>{city}</Text>
+                <Text category={'h4'}>{current.name}</Text>
 
                 <Layout style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
                     <Image
                         style={styles.logo}
                         source={{
-                            uri: 'http://openweathermap.org/img/wn/'+weather.current.weather[0].icon+'@4x.png',
+                            uri: 'http://openweathermap.org/img/wn/'+current.weather[0].icon+'@4x.png',
                         }}
                     />
-                    <Text category={'h1'} style={styles.title}>{weather.current.temp}°C</Text>
+                    <Text category={'h1'} style={styles.title}>{current.main.temp}°C</Text>
                 </Layout>
-                <Text category={'h4'}>{weather.current.weather[0].description}</Text>
+                <Text category={'h4'}>{current.weather[0].description}</Text>
             </Layout>
         </Card>
 

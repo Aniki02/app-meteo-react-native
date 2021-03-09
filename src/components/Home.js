@@ -1,40 +1,66 @@
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, ActivityIndicator, SafeAreaView, Image, ScrollView} from 'react-native';
+import { StyleSheet, ActivityIndicator, SafeAreaView} from 'react-native';
 import {
-    getCurrentFromOpenWeatherAPIWithId,
+    getCurrentFromOpenWeatherAPIWithLatLon,
     getCurrentFromOpenWeatherAPIWithName,
-    getHourlyFromOpenWeatherAPIWithName
+    getOneCallFromOpenWeatherAPI,
 } from "../api/OpenWeatherAPI";
-import {Button, Divider, Layout, Text, TopNavigation, Input, Icon, List, ListItem, Card} from "@ui-kitten/components";
+import {Button, Divider, Layout,TopNavigation, Input, Text} from "@ui-kitten/components";
 import {SearchIcon} from "../../assets/Icons";
 import {CurrentWeather} from "./CurrentWeather";
-import {HourlyForecast} from "./HourlyForecast";
-import {DailyForecast} from "./DailyForecast";
-import {oneCall} from "../helpers/oneCall";
+import * as Location from 'expo-location';
+import * as Permissions from 'expo-permissions';
+import {usePermissions} from "expo-permissions";
 
 const units = 'metric';
 
 const Home = ({navigation}) =>  {
     const [isLoading, setLoading] = useState(false);
-    const [data, setData] = useState(oneCall);
-    const [city, setCity] = useState('Fameck');
+    const [data, setData] = useState(null);
+    const [city, setCity] = useState('');
+    const [location, setLocation] = useState(null);
+    const [errorMsg, setErrorMsg] = useState(null);
 
-    /*useEffect(() => {
-        if (city.length >= 3){
-            getCurrentFromOpenWeatherAPIWithName(city, units)
+    const getCurrentWeather = () => {
+        setLoading(true);
+        getCurrentFromOpenWeatherAPIWithName(city, units)
+            .then((json) => setData(json))
+            .catch((error) => console.log('Error : ' + error))
+            .finally(() => setLoading(false));
+    };
+
+    const getCurrentWeatherWithLatLon = () => {
+        setLoading(true);
+        getCurrentFromOpenWeatherAPIWithName(city, units)
+            .then((json) => setData(json))
+            .catch((error) => console.log('Error : ' + error))
+            .finally(() => setLoading(false));
+    }
+
+
+    const SearchButton = () => (
+        <Button onPress={() => getCurrentWeather()} accessoryLeft={SearchIcon} appearance={'ghost'}/>
+    );
+
+    useEffect(() => {
+        (async () => {
+            setLoading(true);
+            let { status } = await Location.requestPermissionsAsync();
+            if (status !== 'granted') {
+                setErrorMsg('Permission to access location was denied');
+                return;
+            }
+
+            let location = await Location.getCurrentPositionAsync({});
+            setLocation(location);
+            getCurrentFromOpenWeatherAPIWithLatLon(location.coords.latitude, location.coords.longitude, units)
                 .then((json) => setData(json))
                 .catch((error) => console.log('Error : ' + error))
                 .finally(() => setLoading(false));
-        }
-    }, [city]);*/
+        })();
 
-    const getOneCall = (lat, lon) => {
 
-    };
-
-    const SearchButton = () => (
-        <Button onPress={() => getOneCall} accessoryLeft={SearchIcon} appearance={'ghost'}/>
-    );
+    }, []);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -47,7 +73,11 @@ const Home = ({navigation}) =>  {
                 accessoryRight={SearchButton}
             />
             <Layout style={styles.container}>
-                <CurrentWeather navigation={navigation} city={city} weather={data}/>
+                {
+                    data?
+                        <CurrentWeather navigation={navigation} current={data}/> :
+                        <ActivityIndicator/>
+                }
             </Layout>
         </SafeAreaView>
 

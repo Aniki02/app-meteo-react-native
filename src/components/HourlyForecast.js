@@ -1,37 +1,40 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Layout, Text} from "@ui-kitten/components";
 import {ScrollView} from "react-native";
 import {ShortMeteoHourly} from "./ShortMeteoHourly";
+import {getHourlyFromOpenWeatherAPIWithName} from "../api/OpenWeatherAPI";
 
-export const HourlyForecast = ({weather}) => {
+const units = 'metric';
+
+export const HourlyForecast = ({weather, navigation}) => {
     return (
         <Layout>
             <Text category={'h2'}>Hourly Forecast</Text>
             <ScrollView horizontal>
-                <ShortMeteoHourly data={weather[0]}/>
-                <ShortMeteoHourly data={weather[1]}/>
-                <ShortMeteoHourly data={weather[2]}/>
-                <ShortMeteoHourly data={weather[3]}/>
-                <ShortMeteoHourly data={weather[4]}/>
-                <ShortMeteoHourly data={weather[5]}/>
-                <ShortMeteoHourly data={weather[6]}/>
-                <ShortMeteoHourly data={weather[7]}/>
-                <ShortMeteoHourly data={weather[8]}/>
-                <ShortMeteoHourly data={weather[9]}/>
-                <ShortMeteoHourly data={weather[10]}/>
-                <ShortMeteoHourly data={weather[11]}/>
-                <ShortMeteoHourly data={weather[12]}/>
-                <ShortMeteoHourly data={weather[13]}/>
-                <ShortMeteoHourly data={weather[14]}/>
-                <ShortMeteoHourly data={weather[15]}/>
-                <ShortMeteoHourly data={weather[16]}/>
-                <ShortMeteoHourly data={weather[17]}/>
-                <ShortMeteoHourly data={weather[18]}/>
-                <ShortMeteoHourly data={weather[19]}/>
-                <ShortMeteoHourly data={weather[20]}/>
-                <ShortMeteoHourly data={weather[21]}/>
-                <ShortMeteoHourly data={weather[22]}/>
-                <ShortMeteoHourly data={weather[23]}/>
+                <ShortMeteoHourly data={weather[0]} navigation={navigation}/>
+                <ShortMeteoHourly data={weather[1]} navigation={navigation}/>
+                <ShortMeteoHourly data={weather[2]} navigation={navigation}/>
+                <ShortMeteoHourly data={weather[3]} navigation={navigation}/>
+                <ShortMeteoHourly data={weather[4]} navigation={navigation}/>
+                <ShortMeteoHourly data={weather[5]} navigation={navigation}/>
+                <ShortMeteoHourly data={weather[6]} navigation={navigation}/>
+                <ShortMeteoHourly data={weather[7]} navigation={navigation}/>
+                <ShortMeteoHourly data={weather[8]} navigation={navigation}/>
+                <ShortMeteoHourly data={weather[9]} navigation={navigation}/>
+                <ShortMeteoHourly data={weather[10]} navigation={navigation}/>
+                <ShortMeteoHourly data={weather[11]} navigation={navigation}/>
+                <ShortMeteoHourly data={weather[12]} navigation={navigation}/>
+                <ShortMeteoHourly data={weather[13]} navigation={navigation}/>
+                <ShortMeteoHourly data={weather[14]} navigation={navigation}/>
+                <ShortMeteoHourly data={weather[15]} navigation={navigation}/>
+                <ShortMeteoHourly data={weather[16]} navigation={navigation}/>
+                <ShortMeteoHourly data={weather[17]} navigation={navigation}/>
+                <ShortMeteoHourly data={weather[18]} navigation={navigation}/>
+                <ShortMeteoHourly data={weather[19]} navigation={navigation}/>
+                <ShortMeteoHourly data={weather[20]} navigation={navigation}/>
+                <ShortMeteoHourly data={weather[21]} navigation={navigation}/>
+                <ShortMeteoHourly data={weather[22]} navigation={navigation}/>
+                <ShortMeteoHourly data={weather[23]} navigation={navigation}/>
             </ScrollView>
         </Layout>
     );

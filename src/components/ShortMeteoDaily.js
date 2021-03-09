@@ -3,12 +3,16 @@ import {Card, Layout, Text} from "@ui-kitten/components";
 import {Image, StyleSheet} from "react-native";
 import moment from "moment";
 
-export const ShortMeteoDaily = ({weather}) => {
+export const ShortMeteoDaily = ({weather, navigation}) => {
+
     const date = moment.unix(weather.dt).format('DD/MM/YYYY');
+    const goToDetails = (dailyData) => {
+        navigation.navigate('DetailsDaily', {item: dailyData})
+    }
 
     return(
-        <Card>
-            <Layout style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'left'}}>
+        <Card onPress={() => goToDetails(weather)}>
+            <Layout style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
                 <Text category={'h4'}>{weather.temp.day}</Text>
                 <Image
                     style={styles.tinyLogo}

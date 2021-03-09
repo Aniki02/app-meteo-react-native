@@ -1,7 +1,6 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {BottomNavigation, BottomNavigationTab} from "@ui-kitten/components";
-import Home from "../components/Home";
 import Saved from "../components/Saved";
 import {StackNavigator} from "./StackNavigator";
 
