@@ -3,17 +3,13 @@ import {Card, Layout, Text} from "@ui-kitten/components";
 import {Image, StyleSheet} from "react-native";
 import moment from 'moment';
 
-export const CardHourly = ({data, navigation}) => {
+export const CardHourly = ({data}) => {
 
     const hour = moment.unix(data.dt).format('HH:mm');
 
-    const goToDetails = (hourlyData) => {
-        navigation.navigate('DetailsHourly', {item: hourlyData})
-    }
-
     return (
-        <Layout style={{flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Card onPress={() => goToDetails(data)}>
+        <Layout style={styles.container}>
+            <Card>
                 <Text category={'h4'}>{hour}</Text>
                 <Text category={'h4'}>{data.temp} °C</Text>
                 <Image
@@ -30,6 +26,11 @@ export const CardHourly = ({data, navigation}) => {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
     tinyLogo: {
         width: 130,
         height: 130,

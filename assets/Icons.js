@@ -7,11 +7,19 @@ export const BackIcon = (props) => (
 
 export const SaveIcon = (props) => (
     <Icon {...props} name={'save'}/>
-)
+);
 
 export const SaveIconEmpty = (props) => (
     <Icon {...props} name={'save-outline'}/>
-)
+);
+
+export const StarIcon = (props) => (
+    <Icon {...props} name={'star'}/>
+);
+
+export const StarIconEmpty = (props) => (
+    <Icon {...props} name={'star-outline'}/>
+);
 
 export const ViewedIcon = (props) => (
     <Icon {...props} name='eye' />
@@ -31,6 +39,10 @@ export const renderItemIcon = (props) => (
 
 export const SearchIcon = (props) => (
     <Icon {...props} name='search'/>
+);
+
+export const SunIcon = (props) => (
+    <Icon style={{backgroundColor: 'orange'}} {...props} name='sun'/>
 );
 
 
